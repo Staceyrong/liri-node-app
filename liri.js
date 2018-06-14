@@ -3,10 +3,13 @@ require("dotenv").config();
 //Grab data from keys.js
 var keys = require('./keys.js');
 var request = require('request');
-var twitter = require('twitter');
-var spotify = require('spotify');
-var client = new twitter(keys.twitterKeys);
+var Twitter = require('twitter');
+var Spotify = require('node-spotify-api');
+// var client = new twitter(keys.twitterKeys);
 // var fs = require('fs');
+
+var spotify = new Spotify(keys.spotify);
+var client = new Twitter(keys.twitter);
 
 //Stored argument's array
 var nodeArgv = process.argv;
@@ -55,8 +58,7 @@ switch(command){
 
 function showTweets(){
   //Display last 20 Tweets
-  var screenName = {screen_name: 'Jiahong Rong'};
-  client.get('statuses/user_timeline', screenName, function(error, tweets, response){
+  client.get('statuses/user_timeline',function(error, tweets, response){
     if(!error){
       for(var i = 0; i<tweets.length; i++){
         var date = tweets[i].created_at;
@@ -65,7 +67,7 @@ function showTweets(){
         
       }
     }else{
-      console.log('Error occurred');
+      console.log(error);
     }
   });
 }
