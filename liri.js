@@ -6,7 +6,7 @@ var request = require('request');
 var Twitter = require('twitter');
 var Spotify = require('node-spotify-api');
 // var client = new twitter(keys.twitterKeys);
-// var fs = require('fs');
+ var fs = require('fs');
 
 var spotify = new Spotify(keys.spotify);
 var client = new Twitter(keys.twitter);
@@ -111,29 +111,13 @@ function omdbData(movie){
       console.log("Rotten Tomatoes Rating: " + body.tomatoRating);
       console.log("Rotten Tomatoes URL: " + body.tomatoURL);
 
-      //adds text to log.txt
-      fs.appendFile('log.txt', "Title: " + body.Title);
-      fs.appendFile('log.txt', "Release Year: " + body.Year);
-      fs.appendFile('log.txt', "IMdB Rating: " + body.imdbRating);
-      fs.appendFile('log.txt', "Country: " + body.Country);
-      fs.appendFile('log.txt', "Language: " + body.Language);
-      fs.appendFile('log.txt', "Plot: " + body.Plot);
-      fs.appendFile('log.txt', "Actors: " + body.Actors);
-      fs.appendFile('log.txt', "Rotten Tomatoes Rating: " + body.tomatoRating);
-      fs.appendFile('log.txt', "Rotten Tomatoes URL: " + body.tomatoURL);
-
     } else{
       console.log('Error occurred.')
     }
     if(movie === "Mr. Nobody"){
       console.log("-----------------------");
       console.log("If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/");
-      console.log("It's on Netflix!");
-
-      //adds text to log.txt
-      fs.appendFile('log.txt', "-----------------------");
-      fs.appendFile('log.txt', "If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/");
-      fs.appendFile('log.txt', "It's on Netflix!");
+      console.log("It's on Netflix!");  
     }
   });
 
@@ -142,7 +126,8 @@ function omdbData(movie){
 function doThing(){
   fs.readFile('random.txt', "utf8", function(error, data){
     var txt = data.split(',');
-
+    console.log(txt[0]);
+    console.log(txt[1]);
     spotifySong(txt[1]);
   });
 }
